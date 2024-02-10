@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Data Science Portfolio </title>
+<title>Portfolio </title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="stylesheet.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
@@ -16,6 +17,21 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 #main {margin-left: 120px}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+
+
+    .glowing {
+        animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        0% {
+            box-shadow: 0 0 10px #25d366; /* Change the glow color to match WhatsApp's green (#25d366) */
+        }
+        100% {
+            box-shadow: 0 0 20px #25d366; /* Increase the glow size */
+        }
+    }
+
 </style>
 </head>
 <body class="w3-black">
@@ -24,17 +40,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
   <img src="future.jpeg" style="width:100%">
-  <a href="https://janeferdinant.github.io/entri" class="w3-bar-item w3-button w3-padding-large w3-black">
+  <a href=" https://janeferdinant.github.io/entri" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
   </a>
-  <a href=" https://github.com/janeferdinant" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="https://ieeexplore.ieee.org/document/8986220" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-user w3-xxlarge"></i>
     <p>ABOUT</p>
   </a>
-  <a href=" https://ieeexplore.ieee.org/document/8986220" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="https://github.com/janeferdinant" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PROJECT</p>
+    <p>PROJECTS</p>
   </a>
   <a href="https://www.linkedin.com/in/janerosenf" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-envelope w3-xxlarge"></i>
@@ -57,9 +73,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Jane Ferdinant.</h1>
-    <p>Datascience and Machine learning.</p>
+    <p id="changing-text" class="glowing-text">Datascience and Machine learning.</p>
   <!--   
-    <img src="future.jpeg" alt="AI Engineer" class="w3-image" width="992" height="1108">
+    <img src="C:\Users\Lijo George\Downloads\images\future.jpeg" alt="AI Engineer" class="w3-image" width="992" height="1108">
    -->
   </header>
 
@@ -106,15 +122,15 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     </div>
 
   <!-- 
-    <button onclick="window.location.href = 'list.html', '_blank'" class="w3-button w3-light-grey w3-padding-large w3-section">Click Resume</button>
+    <button onclick="window.location.href = 'C:/Users/Lijo George/Downloads/images/list.html', '_blank'" class="w3-button w3-light-grey w3-padding-large w3-section">Click Resume</button>
     -->
     <button onclick="downloadPDF()"class="w3-button w3-light-grey w3-padding-large w3-section">
       <i class="fa fa-download"></i> Download Resume ▼</button>
 
     <script>
         function downloadPDF() {
-            // Replace 'file.pdf' with the actual path to your PDF file
-            var pdfURL = 'data scientist --UAE.pdf';
+            // Replace 'path/to/your/file.pdf' with the actual path to your PDF file
+            var pdfURL = 'data scientist--Canada.pdf';
             var link = document.createElement('a');
             link.href = pdfURL;
             link.download = pdfURL.split('/').pop(); // This sets the filename to the last part of the URL
@@ -164,7 +180,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     
     <!-- Testimonials -->
     <h3 class="w3-padding-24 w3-text-light-grey">Data Scientist</h3>  
-    <img src="gan.jpeg" alt="Research" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <img src="pink.jpeg" alt="Research" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Voluntary works.</span> Freelancer.</p>
     <p>Research /AI arts.</p><br>
     
@@ -239,8 +255,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <div class="w3-col l3 m6 w3-margin-bottom">
   <div class="w3-display-container">
     <div class="w3-display-topleft w3-black w3-padding">Sentiment_Analysis</div>
-    <img src="Twitter Sentiment Analysis.jpeg" 
-     alt="Project" style="width:99%">
+    <img src="Twitter Sentiment Analysis.jpeg" alt="Project" style="width:99%">
   </div>
   </div>
   
@@ -258,10 +273,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <hr style="width:200px" class="w3-opacity">
 
     <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Abu Dhabi, United Arab Emirates</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>Phone: +971508174235</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>Email: janeferdinant@gmail.com</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>Email: jane.elixer143@gmail.com</p>
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> 9 Mclaren Ave, Brantford N3T 0S3,Canada</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: janeferdinant@gmail.com</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: jane.elixer143@gmail.com</p>
     </div><br>
     <p>For jobs in Dubai,Abudhabi,Canada ,Let's get in touch. Send me a message via Linkedin/Email:</p>
 
@@ -269,16 +283,28 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     </div>
   
     <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <i class="w3-medium">janerosenf <a href="https://www.linkedin.com/in/janerosenf" target="_blank" class="w3-hover-text-green">linkedin</a></p>
-  <!-- End footer -->
+    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+      <a href="whatsapp://send?phone=+91 9567181993" target="_blank" rel="noopener noreferrer"><i class="fa fa-whatsapp w3-hover-opacity glowing"></i></a>
+      <a href="https://github.com/janeferdinant" target="_blank" rel="noopener noreferrer"><i class="fa fa-github w3-hover-opacity glowing"></i></a>
+      <a href="https://www.linkedin.com/in/janerosenf" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin w3-hover-opacity glowing"></i></a>
   </footer>
+  
+      <!-- End footer -->
 
+      <script>
+          const texts = [
+              "Datascience and Machine learning.",
+              "AI and computer vision."
+          ];
+          let index = 0;
+      
+          function changeText() {
+              document.getElementById("changing-text").textContent = texts[index];
+              index = (index + 1) % texts.length;
+          }
+      
+          setInterval(changeText, 2000); // Change text every 2 seconds
+      </script>
 <!-- END PAGE CONTENT -->
 </div>
 
