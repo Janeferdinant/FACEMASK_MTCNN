@@ -17,6 +17,15 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 #main {margin-left: 120px}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+   /* CSS for contact section */
+   .contact-container {
+    margin-left: 5px; /* Add a small left margin */
+}
+
+.contact-icon {
+    margin-right: 10px; /* Add margin between icons */
+    display: inline-block; /* Ensure icons are displayed inline */
+}
 
 .hidden {
   display: none;
@@ -319,28 +328,21 @@ function toggleImages() {
   
   </div>
   
-  <!-- End page content -->
-  </div>
-   
-  <!-- End Portfolio Section -->
-  </div>
+ 
 
   
 
 
-  <!-- Contact Section -->
+  <!-- Contact Section 
   <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
     
      <h2 class="w3-text-light-grey w3-opacity" style="width:190px; text-decoration: underline;">Contact Me</h2>
   
     <div class="w3-section">
     <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> 9 Mclaren Ave, Brantford N3T 0S3,Canada</p>
-    <p>
-
-    </p>
-
+   
       <div>
-        <a href="whatsapp://send?phone=+919567181993" class="w3-text-white w3-hover-opacity glowing" style="display: inline-block; margin-right: 10px;">
+        <a href="whatsapp://send?phone=+919567181993" class="w3-text-white w3-hover-opacity glowing" style="display: inline-block;">
             <i class="fa fa-whatsapp fa-fw w3-xxlarge"></i> WhatsApp Me
         </a>
         
@@ -370,18 +372,9 @@ function toggleImages() {
           window.location.href = "mailto:"+ emailAddresses;
       }
     </script>
-    </div>
-    </div>
+   
   
-    <!-- Footer 
-    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-      <a href="whatsapp://send?phone=+91 9567181993" target="_blank" rel="noopener noreferrer"><i class="fa fa-whatsapp w3-hover-opacity glowing"></i></a></p>
-
-      <p><a href="https://github.com/janeferdinant" target="_blank" rel="noopener noreferrer"><i class="fa fa-github w3-hover-opacity glowing"></i></a></p>
-      <p><a href="https://www.linkedin.com/in/janerosenf" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin w3-hover-opacity glowing"></i></a></p>
-  </footer>
-  
-       End footer -->
+   
 
       <script>
           const texts = [
@@ -399,15 +392,71 @@ function toggleImages() {
       </script>
       
 
-    <!-- Button to list all images -->
+   </div>
+
+
+      Button to list all images
+     -->
    
+
+
+<!-- Contact Section -->
+<div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+
+  <h2 class="w3-text-light-grey w3-opacity" style="width:190px; text-decoration: underline;">Contact Me</h2>
+
+  <div class="contact-container"> <!-- Added a container div -->
+      <div class="w3-section"> <!-- Moved the section class inside the container -->
+          <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> 9 Mclaren Ave, Brantford N3T 0S3,Canada</p>
+
+          <div>
+              <a href="whatsapp://send?phone=+919567181993" class="w3-text-white w3-hover-opacity glowing contact-icon">
+                  <i class="fa fa-whatsapp fa-fw w3-xxlarge"></i> WhatsApp Me
+              </a>
+
+              <a href="mailto:jane.elixer143@gmail.com" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-envelope fa-fw w3-xxlarge"></i> Email me
+              </a>
+
+              <a href="https://www.linkedin.com/in/janerosenf" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-linkedin fa-fw w3-xxlarge"></i> LinkedIn
+              </a>
+
+              <a href="https://github.com/janeferdinant" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-github fa-fw w3-xxlarge"></i> GitHub
+              </a>
+          </div>
+      </div>
+  </div>
+  <br>
+  <p>For jobs in Dubai,Abudhabi,Canada ,Let's get in touch. Send me a message via WhatsApp/Email:</p>
+  <script>
+      function openEmail() {
+          var emailAddresses = "jane.elixer143@gmail.com";
+          window.location.href = "mailto:"+ emailAddresses;
+      }
+  </script>
+
+
+  
+
+
+  <!-- Button to list all images -->
+
 </div>
 
-<!-- END PAGE CONTENT -->
+<style>
+  /* CSS for contact section */
+  .contact-container {
+      margin-left: 5px; /* Add a small left margin */
+  }
 
-
-
-</div>
+  .contact-icon {
+      margin-right: 10px; /* Add margin between icons */
+      display: inline-block; /* Ensure icons are displayed inline */
+  }
+</style>
 
 </body>
+ 
 </html>
