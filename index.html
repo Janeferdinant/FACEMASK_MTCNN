@@ -311,22 +311,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 <!-- Your other HTML content -->
 
-<script>
-function toggleImages() {
-    var images = document.querySelectorAll('.project-image');
-    images.forEach(function(image) {
-        if (image.classList.contains('hidden')) {
-            image.classList.remove('hidden');
-        } else {
-            image.classList.add('hidden');
-        }
-    });
-}
-</script>
-  <!-- Projects -->
 
-  
-  </div>
   
  
 
@@ -475,7 +460,22 @@ function toggleImages() {
     }
   }
 </style>
-
+<script>
+  function toggleImages() {
+      var images = document.querySelectorAll('.project-image');
+      images.forEach(function(image) {
+          if (image.classList.contains('hidden')) {
+              image.classList.remove('hidden');
+          } else {
+              image.classList.add('hidden');
+          }
+      });
+  }
+  </script>
+    <!-- Projects -->
+  
+    
+    </div>
 </body>
  
 </html>
