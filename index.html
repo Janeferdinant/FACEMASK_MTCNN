@@ -448,12 +448,84 @@ function toggleImages() {
 <style>
   /* CSS for contact section */
   .contact-container {
-      margin-left: 5px; /* Add a small left margin */
+      margin-left: 10px; /* Add a small left margin */
   }
 
   .contact-icon {
       margin-right: 10px; /* Add margin between icons */
       display: inline-block; /* Ensure icons are displayed inline */
+  }
+</style>
+<!-- Contact Section -->
+<div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+
+  <h2 class="w3-text-light-grey w3-opacity" style="width:190px; text-decoration: underline;">Contact Me</h2>
+
+  <div class="contact-container"> <!-- Added a container div -->
+      <div class="w3-section"> <!-- Moved the section class inside the container -->
+          <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> 9 Mclaren Ave, Brantford N3T 0S3,Canada</p>
+
+          <div>
+              <a href="whatsapp://send?phone=+919567181993" class="w3-text-white w3-hover-opacity glowing contact-icon">
+                  <i class="fa fa-whatsapp fa-fw w3-xxlarge"></i> WhatsApp Me
+              </a>
+
+              <a href="mailto:jane.elixer143@gmail.com" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-envelope fa-fw w3-xxlarge"></i> Email me
+              </a>
+
+              <a href="https://www.linkedin.com/in/janerosenf" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-linkedin fa-fw w3-xxlarge"></i> LinkedIn
+              </a>
+
+              <a href="https://github.com/janeferdinant" class="w3-hover-opacity glowing w3-text-white contact-icon">
+                  <i class="fa fa-github fa-fw w3-xxlarge"></i> GitHub
+              </a>
+          </div>
+      </div>
+  </div>
+  <br>
+  <p>For jobs in Dubai,Abudhabi,Canada ,Let's get in touch. Send me a message via WhatsApp/Email:</p>
+  <script>
+      function openEmail() {
+          var emailAddresses = "jane.elixer143@gmail.com";
+          window.location.href = "mailto:"+ emailAddresses;
+      }
+  </script>
+
+</div>
+
+<style>
+  /* CSS for contact section */
+  .contact-container {
+      margin-left: 10px; /* Add a small left margin */
+  }
+
+  .contact-icon {
+      margin-right: 20px; /* Add margin between icons */
+      display: inline-block; /* Ensure icons are displayed inline */
+  }
+
+  /* Adjustments for sidebar */
+  @media only screen and (min-width: 601px) {
+    .w3-sidebar {
+      width: 160px; /* Increase sidebar width */
+    }
+
+    #main {
+      margin-left: 160px; /* Match the width of the sidebar */
+    }
+  }
+
+  /* Adjustments for navbar */
+  @media only screen and (max-width: 600px) {
+    #myNavbar {
+      width: 100%; /* Set navbar width to 100% */
+    }
+
+    .w3-bar-item {
+      width: 25%; /* Set each navbar item width to 25% */
+    }
   }
 </style>
 
