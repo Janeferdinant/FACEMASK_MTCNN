@@ -5,6 +5,8 @@ Face Mask Detection using MTCNN
 ![Gemini_Generated_Image_7h8lyq7h8lyq7h8l](https://github.com/user-attachments/assets/e215114c-a07f-48aa-9b25-b0c4e2626330)
 
 All the dependencies and required libraries are included in the file <code>requirements.txt</code> [See here](https://github.com/Janeferdinant/FACEMASK_MTCNN/blob/main/requirements.txt)
+ Cyber-Mask MTCNN facemask detector<code>blog.txt</code> [See here](https://www.blogger.com/blog/posts/8129491078230736872)
+
 
 
 
