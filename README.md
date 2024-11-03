@@ -28,8 +28,8 @@ Face Mask Detection using MTCNN
 Prerequisites
 Software:
 
-Python 3.x ([https://www.python.org/downloads/](https://www.python.org/downloads/))
-Jupyter Notebook ([https://jupyter.org/](https://jupyter.org/))
+Python 3.x ([python.org](https://www.python.org/downloads/))
+Jupyter Notebook ([jupyter.org/](https://jupyter.org/))
 Hardware:
 
 A computer with a GPU (recommended for faster training)
@@ -48,7 +48,7 @@ For further reading about MTCNN and its application in face mask detection, you 
 Working the Project
 Instructions:
 
-Clone the repository: (Assuming you have Git installed: [https://git-scm.com/](https://git-scm.com/)
+Clone the repository: (Assuming you have Git installed: [git-scm.com/](https://git-scm.com/)
 Bash
 git clone https://github.com/Janeferdinant/FACEMASK_MTCNN
 
