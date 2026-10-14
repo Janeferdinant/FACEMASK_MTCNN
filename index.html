@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Face-mask detection with MTCNN and InceptionV3</title>
+<meta name="description" content="A two-stage face-mask detector: MTCNN finds the faces and a transfer-learned InceptionV3 labels each one. Pipeline, verified results with status labels, limitations and code.">
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --surface: #ffffff;
+    --ink: #1a202c;
+    --muted: #4a5568;
+    --line: #dfe3ea;
+    --accent: #2b6cb0;
+    --accent-ink: #ffffff;
+    --note-bg: #fff8e6;
+    --note-line: #e7c76b;
+    --ok-bg: #e6f6ec;
+    --ok-ink: #1d6b3a;
+    --rep-bg: #eef1f6;
+    --rep-ink: #3d4a5f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f141b;
+      --surface: #161d27;
+      --ink: #e6ebf2;
+      --muted: #a4afbf;
+      --line: #2a3442;
+      --accent: #7db4f0;
+      --accent-ink: #0f141b;
+      --note-bg: #2b2412;
+      --note-line: #6b5a22;
+      --ok-bg: #153024;
+      --ok-ink: #7fd8a3;
+      --rep-bg: #202a37;
+      --rep-ink: #b7c2d3;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px 64px; }
+  header { padding: 48px 0 24px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 8px; }
+  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .lede { font-size: 18px; color: var(--muted); margin: 0 0 24px; max-width: 62ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-block; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 15px;
+    text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  section { padding: 28px 0 0; }
+  h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: -0.005em; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); }
+  figure { margin: 0; }
+  .diagram { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: block; }
+  figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .note { background: var(--note-bg); border: 1px solid var(--note-line); border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; }
+  .note strong { font-weight: 700; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 560px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+  .tag { display: inline-block; border-radius: 6px; padding: 1px 8px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .tag.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .tag.rep { background: var(--rep-bg); color: var(--rep-ink); }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  code { font: 0.92em Consolas, "SFMono-Regular", Menlo, monospace; background: var(--rep-bg); padding: 1px 5px; border-radius: 4px; }
+  pre { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; overflow-x: auto; font-size: 14px; margin: 0 0 12px; }
+  pre code { background: none; padding: 0; }
+  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer p { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Computer vision &middot; teaching project</p>
+  <h1>Face-mask detection with MTCNN and InceptionV3</h1>
+  <p class="lede">MTCNN finds the faces in a photo; a transfer-learned InceptionV3 network labels each one <code>with_mask</code>, <code>without_mask</code> or <code>mask_weared_incorrect</code>.</p>
+  <div class="actions">
+    <a class="btn primary" href="https://github.com/Janeferdinant/FACEMASK_MTCNN">Code on GitHub</a>
+    <a class="btn" href="#demo">Try the demo</a>
+    <a class="btn" href="https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn">Model on Hugging Face</a>
+  </div>
+</header>
+
+<main>
+
+<section id="pipeline">
+  <h2>How it works</h2>
+  <figure>
+    <img class="diagram" src="docs/pipeline.svg" alt="Pipeline: an input image goes to the pretrained MTCNN face detector; each detected face is cropped, resized to 100 by 100 pixels and scaled to 0 to 1; a transfer-learned InceptionV3 classifier labels each face as with_mask, without_mask or mask_weared_incorrect.">
+    <figcaption>MTCNN is pretrained and not trained here. Only the small classifier head on top of a frozen InceptionV3 is trained (12.6 of 21.6 million parameters).</figcaption>
+  </figure>
+  <p style="margin-top:14px">The data is split <strong>by source photo</strong>, not by face: many photos contain several faces, and a split by face would put faces from the same photo in both the training and the test set.</p>
+</section>
+
+<section id="results">
+  <h2>Results</h2>
+  <div class="note"><strong>Read this first.</strong> One run, one split, one seed, no confidence interval. The rarest class has only 12 test crops, so its numbers are noisy. The two accuracies below are different measurements on different test sets and are not directly comparable.</div>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th><th>Status</th><th>How measured</th></tr></thead>
+      <tbody>
+        <tr><td>Test accuracy</td><td>96.31% (392 of 407 face crops)</td><td><span class="tag ok">Verified</span> re-run 2026-10-13, photo-grouped split</td><td>Final epoch-20 model on 78 held-out photos, seed 42</td></tr>
+        <tr><td>F1 per class</td><td>without_mask 0.929<br>with_mask 0.979<br>mask_weared_incorrect <strong>0.700</strong> (12 test crops)</td><td><span class="tag ok">Verified</span> re-run 2026-10-13, photo-grouped split</td><td>scikit-learn classification report, same test set</td></tr>
+        <tr><td>Majority-class baseline</td><td>79.4%</td><td><span class="tag ok">Verified</span> re-run 2026-10-13, photo-grouped split</td><td>Always predicting <code>with_mask</code></td></tr>
+        <tr><td>Test accuracy (2022 notebook)</td><td>94.85% (387 of 408)</td><td><span class="tag rep">Reported</span> notebook output, Feb 2022</td><td>Unseeded random split by face; most test faces shared a photo with training faces, so it overstates generalisation. Cannot be recreated.</td></tr>
+        <tr><td>Webcam speed</td><td>about 1.3 frames per second</td><td><span class="tag rep">Reported</span> notebook 3's own note</td><td>Live loop on the author's machine (not recorded)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:12px">Per-class precision and recall, the confusion matrix and the split sizes are in the <a href="https://github.com/Janeferdinant/FACEMASK_MTCNN/blob/main/docs/runs/2026-10-13-grouped-split.md">run log</a>.</p>
+</section>
+
+<section id="demo">
+  <h2>Demo</h2>
+  <div class="note"><strong>There is no hosted demo yet.</strong> A public Hugging Face Space is prepared, but Hugging Face currently requires a PRO subscription for a Gradio Space on free hardware, so it has not been created (<a href="https://github.com/Janeferdinant/FACEMASK_MTCNN/blob/main/docs/runs/2026-10-14-space-check.md">details</a>). Until then, the same app runs on your own computer.</div>
+  <p>Upload a photo or take a webcam snapshot and get labelled boxes back. The app does not save images. The weights (about 190 MB) are downloaded once from the <a href="https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn">public model repository</a>; Python 3.11 is needed.</p>
+<pre><code>git clone https://github.com/Janeferdinant/FACEMASK_MTCNN.git
+cd FACEMASK_MTCNN
+python -m venv .venv &amp;&amp; source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt -r demo/requirements.txt
+python demo/app.py        # then open http://127.0.0.1:7860</code></pre>
+  <p>More options are in <a href="https://github.com/Janeferdinant/FACEMASK_MTCNN/blob/main/demo/README.md">demo/README.md</a>.</p>
+</section>
+
+<section id="data">
+  <h2>Data</h2>
+  <p>Kaggle <a href="https://www.kaggle.com/datasets/andrewmvd/face-mask-detection">Face Mask Detection</a> by andrewmvd (CC0): 853 photos with 4,072 annotated faces, of which 3,232 are <code>with_mask</code>, 717 <code>without_mask</code> and only 123 <code>mask_weared_incorrect</code>. The photos show real people's faces; CC0 describes the dataset's copyright status and does not say whether the people consented.</p>
+</section>
+
+<section id="limitations">
+  <h2>Limitations</h2>
+  <ul>
+    <li><strong>Rare class.</strong> <code>mask_weared_incorrect</code> has 12 test crops and recall of 7 of 12; one crop moves it by about 8 points.</li>
+    <li><strong>Small, single-source data.</strong> Untested on other cameras, lighting, face angles, skin tones or mask styles.</li>
+    <li><strong>Detector misses.</strong> MTCNN found 5 of the 9 faces in one test photo, and a missed face gets no label.</li>
+    <li><strong>Overfitting.</strong> Validation loss rises from 0.28 at epoch 1 to 0.80 at epoch 20.</li>
+    <li><strong>Not a real-time system</strong>, and <strong>not for safety-critical or surveillance use</strong>. It is a learning project.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <p>Credits: dataset by andrewmvd on Kaggle (CC0), from the Make ML Mask Dataset; MTCNN by Zhang et al. (2016), implementation <a href="https://github.com/ipazc/mtcnn">ipazc/mtcnn</a>; InceptionV3 by Szegedy et al. (2016). Third-party licenses are listed in <a href="https://github.com/Janeferdinant/FACEMASK_MTCNN/blob/main/THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>.</p>
+  <p>Original work &copy; Jane Rose Ferdinant, licensed <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.</p>
+  <p>Jane Rose Ferdinant &middot; <a href="https://janeferdinant.vercel.app">Portfolio</a> &middot; <a href="https://www.linkedin.com/in/janerosenf/">LinkedIn</a> &middot; <a href="https://github.com/Janeferdinant/FACEMASK_MTCNN">Source repository</a></p>
+</footer>
+
+</div>
+</body>
+</html>
