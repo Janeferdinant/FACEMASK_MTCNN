@@ -1,6 +1,6 @@
 # Third-party notices
 
-Original work in this repository is (c) Jane Rose Ferdinant, licensed CC BY-NC-SA 4.0 (see `LICENSE`).
+Original work in this repository is (c) Jane Rose Ferdinant, licensed CC BY-NC-ND 4.0 (see `LICENSE`).
 The components below are third-party and keep their own licenses.
 
 ## 1. FaceMe (code)
