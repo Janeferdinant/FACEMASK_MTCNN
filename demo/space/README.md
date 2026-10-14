@@ -10,7 +10,7 @@ pinned: false
 license: cc-by-nc-nd-4.0
 short_description: Detect faces with MTCNN and label mask / no mask / worn incorrectly
 models:
-  - JaneAaronNF/face-mask-inceptionv3-mtcnn
+  - JaneRoseFerdinant/face-mask-inceptionv3-mtcnn
 ---
 
 # Face mask detection: MTCNN + InceptionV3
@@ -32,7 +32,7 @@ This is a teaching demo of a two-stage detect-then-classify pipeline.
 
 ## Links
 
-- Model weights and model card: https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn
+- Model weights and model card: https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn
 - Code, notebooks, run log and project page: https://github.com/Janeferdinant/FACEMASK_MTCNN
 - License: original work (c) Jane Rose Ferdinant, CC BY-NC-ND 4.0. Third-party components keep their own licenses; see THIRD_PARTY_NOTICES.md in the GitHub repository.
 

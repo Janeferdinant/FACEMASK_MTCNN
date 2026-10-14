@@ -1,4 +1,4 @@
-"""Assemble and upload the Hugging Face Space JaneAaronNF/face-mask-demo.
+"""Assemble and upload the Hugging Face Space JaneRoseFerdinant/face-mask-demo.
 
 The Space is a copy of this folder's app plus three example photos from the CC0 dataset:
 
@@ -23,7 +23,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
-SPACE_ID = "JaneAaronNF/face-mask-demo"
+SPACE_ID = "JaneRoseFerdinant/face-mask-demo"
 
 sys.path.insert(0, str(HERE))
 

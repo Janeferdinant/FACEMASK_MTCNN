@@ -11,14 +11,14 @@ The trained weights are not stored in git. There are three ways to get them:
 
     1. Do nothing: if no weights are given and data/inceptionV3-model.h5 does not exist, the app downloads
        inceptionV3-model.keras (about 190 MB) from the Hugging Face model repository
-       JaneAaronNF/face-mask-inceptionv3-mtcnn.
+       JaneRoseFerdinant/face-mask-inceptionv3-mtcnn.
     2. Train them with notebooks 1 and 2 (notebook 2 writes data/inceptionV3-model.h5).
     3. Point at any weights file:
 
            python demo/app.py --weights data/inceptionV3-model.h5
            FACEMASK_WEIGHTS=path/to/inceptionV3-model.h5 python demo/app.py
 
-The same file is the app of the Hugging Face Space JaneAaronNF/face-mask-demo (see demo/README.md).
+The same file is the app of the Hugging Face Space JaneRoseFerdinant/face-mask-demo (see demo/README.md).
 
 Check mode runs the pipeline on image files, prints the detections as JSON and exits without
 starting a server:
@@ -46,7 +46,7 @@ COLORS = {0: (255, 0, 0), 1: (0, 255, 0), 2: (255, 255, 0)}
 IMG_SIZE = (100, 100)
 
 # Where to download the weights from when there are no local ones (the public model repository).
-HF_REPO = "JaneAaronNF/face-mask-inceptionv3-mtcnn"
+HF_REPO = "JaneRoseFerdinant/face-mask-inceptionv3-mtcnn"
 HF_FILENAME = "inceptionV3-model.keras"
 
 # Example photos from the Kaggle "Face Mask Detection" dataset (CC0). They are looked up in an

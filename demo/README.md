@@ -22,7 +22,7 @@ Open http://127.0.0.1:7860. Where the weights come from, in this order:
 
 1. `--weights <file>` or the `FACEMASK_WEIGHTS` environment variable (a `.h5` or `.keras` file);
 2. `data/inceptionV3-model.h5`, which notebook 2 writes when you train the model yourself;
-3. otherwise the app downloads `inceptionV3-model.keras` from the public model repository [`JaneAaronNF/face-mask-inceptionv3-mtcnn`](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn).
+3. otherwise the app downloads `inceptionV3-model.keras` from the public model repository [`JaneRoseFerdinant/face-mask-inceptionv3-mtcnn`](https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn).
 
 To run the pipeline without a browser and print the detections as JSON:
 
@@ -45,7 +45,7 @@ MTCNN runs on every 10th frame (`--detect-every N`), optical flow moves the boxe
 
 ## The Hugging Face Space (not yet live)
 
-The files for a public Gradio Space named `JaneAaronNF/face-mask-demo` are ready, but **the Space has not been created**: on 2026-10-14 Hugging Face refused (HTTP 402) because a Gradio Space on free `cpu-basic` hardware needs a PRO subscription on this account. See [`docs/runs/2026-10-14-space-check.md`](../docs/runs/2026-10-14-space-check.md) for the exact message and for a local rehearsal of the Space package.
+The files for a public Gradio Space named `JaneRoseFerdinant/face-mask-demo` are ready, but **the Space has not been created**: on 2026-10-14 Hugging Face refused (HTTP 402) because a Gradio Space on free `cpu-basic` hardware needs a PRO subscription on this account. See [`docs/runs/2026-10-14-space-check.md`](../docs/runs/2026-10-14-space-check.md) for the exact message and for a local rehearsal of the Space package.
 
 How the Space is set up, so it can be created as soon as that is resolved:
 
@@ -64,4 +64,4 @@ python demo/build_space.py               # create the Space (public, CPU basic) 
 
 ## Model weights
 
-Public model repository: https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn (model card with the verified grouped-split result and the limitations). `inceptionV3-model.keras` there is the final epoch-20 model from the 2026-10-13 run.
+Public model repository: https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn (model card with the verified grouped-split result and the limitations). `inceptionV3-model.keras` there is the final epoch-20 model from the 2026-10-13 run.

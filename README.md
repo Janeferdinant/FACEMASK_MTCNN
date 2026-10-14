@@ -1,7 +1,7 @@
 # FACEMASK_MTCNN: face-mask detection with MTCNN and a transfer-learned InceptionV3 classifier
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-[![Model on Hugging Face](https://img.shields.io/badge/Hugging%20Face-model-yellow.svg)](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn)
+[![Model on Hugging Face](https://img.shields.io/badge/Hugging%20Face-model-yellow.svg)](https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn)
 
 ## Overview
 
@@ -9,7 +9,7 @@ A webcam detector that finds faces with MTCNN and labels each one `with_mask`, `
 
 ## Demo
 
-**Live demo: not available yet.** A public Hugging Face Space is prepared (`demo/build_space.py`), but Hugging Face refused to create it on 2026-10-14 because a Gradio Space on free hardware needs a PRO subscription ([details](docs/runs/2026-10-14-space-check.md)). Until it exists, run the same app on your own computer. You do not need to train anything: the weights are downloaded once (about 190 MB) from the public [model repository](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn).
+**Live demo: not available yet.** A public Hugging Face Space is prepared (`demo/build_space.py`), but Hugging Face refused to create it on 2026-10-14 because a Gradio Space on free hardware needs a PRO subscription ([details](docs/runs/2026-10-14-space-check.md)). Until it exists, run the same app on your own computer. You do not need to train anything: the weights are downloaded once (about 190 MB) from the public [model repository](https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn).
 
 ```bash
 pip install -r requirements.txt -r demo/requirements.txt
@@ -146,7 +146,7 @@ data/images, data/annotations     the dataset (CC0)
 requirements.txt                  pinned versions that install on Python 3.11
 ```
 
-Generated files (`data/*.npy`, `*.pkl`, `*.h5`, `*.keras`) are git-ignored. Model weights are not stored in this repository; they are published on the [Hugging Face Hub](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn) with a model card.
+Generated files (`data/*.npy`, `*.pkl`, `*.h5`, `*.keras`) are git-ignored. Model weights are not stored in this repository; they are published on the [Hugging Face Hub](https://huggingface.co/JaneRoseFerdinant/face-mask-inceptionv3-mtcnn) with a model card.
 
 ## Real-world applications
 
