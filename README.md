@@ -1,6 +1,7 @@
 # FACEMASK_MTCNN: face-mask detection with MTCNN and a transfer-learned InceptionV3 classifier
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+[![Model on Hugging Face](https://img.shields.io/badge/Hugging%20Face-model-yellow.svg)](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn)
 
 ## Overview
 
@@ -8,13 +9,14 @@ A webcam detector that finds faces with MTCNN and labels each one `with_mask`, `
 
 ## Demo
 
-There is no hosted demo. You can run one locally after training the model (see [Getting started](#getting-started)):
+**Live demo: not available yet.** A public Hugging Face Space is prepared (`demo/build_space.py`), but Hugging Face refused to create it on 2026-10-14 because a Gradio Space on free hardware needs a PRO subscription ([details](docs/runs/2026-10-14-space-check.md)). Until it exists, run the same app on your own computer. You do not need to train anything: the weights are downloaded once (about 190 MB) from the public [model repository](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn).
 
 ```bash
-python demo/app.py --weights data/inceptionV3-model.h5
+pip install -r requirements.txt -r demo/requirements.txt
+python demo/app.py
 ```
 
-It opens a Gradio page where you upload an image or take a webcam snapshot and get labelled boxes back. The app does not save images. The example images come from the CC0 dataset described below.
+It opens a Gradio page where you upload an image or take a webcam snapshot and get labelled boxes back. The app does not save images. The example images come from the CC0 dataset described below. More options are in [`demo/README.md`](demo/README.md). The project page, [janeferdinant.github.io/FACEMASK_MTCNN](https://janeferdinant.github.io/FACEMASK_MTCNN/), summarises the pipeline and results.
 
 ## Problem statement
 
@@ -81,14 +83,14 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 
 Expected on a CPU laptop (2026-10-13 run): notebook 1 takes about 30 seconds and prints `Face crops : 4072 | distinct source photos : 848`. Notebook 2 takes about 5.5 minutes, prints `Test loss: 0.5154  Test accuracy: 0.9631  (407 face crops)` with seed 42, and writes `data/inceptionV3-model.h5`. A different TensorFlow version or CPU may change the last digits.
 
-Try the Gradio demo on the trained model:
+Try the Gradio demo on the model you just trained:
 
 ```bash
 pip install -r demo/requirements.txt
 python demo/app.py --weights data/inceptionV3-model.h5
 ```
 
-Open http://127.0.0.1:7860. To check the pipeline without a browser, run `python demo/app.py --weights data/inceptionV3-model.h5 --check data/images/maksssksksss3.png`, which prints the detections as JSON. The weights path can also be given through the `FACEMASK_WEIGHTS` environment variable.
+Open http://127.0.0.1:7860. To check the pipeline without a browser, run `python demo/app.py --weights data/inceptionV3-model.h5 --check data/images/maksssksksss3.png`, which prints the detections as JSON. The weights path can also be given through the `FACEMASK_WEIGHTS` environment variable. Without `--weights` and without `data/inceptionV3-model.h5`, the app downloads the published weights instead (see [Demo](#demo)).
 
 Notebook 3 (`3_detecting-mask-w-mtcnn.ipynb`) opens a webcam window. It was not re-run in 2026 because it needs a camera. It loads `data/inceptionV3-model.h5` and `data/category2label.pkl`, which notebooks 1 and 2 create.
 
@@ -99,13 +101,17 @@ Notebook 3 (`3_detecting-mask-w-mtcnn.ipynb`) opens a webcam window. It was not 
 2_training-face-mask-model.ipynb  seeded photo-grouped split, InceptionV3 training, evaluation
 3_detecting-mask-w-mtcnn.ipynb    MTCNN + classifier on webcam frames (original 2022 notebook)
 demo/app.py                       Gradio app: image in, labelled boxes out
+demo/README.md                    how to run the demo; how the Hugging Face Space is set up
+demo/build_space.py, demo/space/  files for the (not yet created) Hugging Face Space
 docs/pipeline.svg                 pipeline diagram
 docs/runs/                        dated run logs
+index.html                        project page served by GitHub Pages
+archive/                          unrelated legacy site files (see archive/README.md)
 data/images, data/annotations     the dataset (CC0)
 requirements.txt                  pinned versions that install on Python 3.11
 ```
 
-Generated files (`data/*.npy`, `*.pkl`, `*.h5`, `*.keras`) are git-ignored. Model weights are not stored in this repository.
+Generated files (`data/*.npy`, `*.pkl`, `*.h5`, `*.keras`) are git-ignored. Model weights are not stored in this repository; they are published on the [Hugging Face Hub](https://huggingface.co/JaneAaronNF/face-mask-inceptionv3-mtcnn) with a model card.
 
 ## Real-world applications
 
@@ -127,14 +133,14 @@ The same detect, crop, classify pattern applies to any task that needs a per-fac
 - Group-aware cross-validation with confidence intervals instead of a single split.
 - Class weighting or more `mask_weared_incorrect` examples, and a test on a second dataset.
 - Batch the per-frame classification in notebook 3 and share one `predict()` function between the notebook and the demo.
-- A hosted, upload-only demo once the weights have a permanent home.
+- A hosted, upload-only demo: the weights now have a public home, and the Space files are ready (see [Demo](#demo)); what is missing is a hosting plan that works for a free account.
 
 ## Credits & citation
 
-- **Code.** The notebooks were adapted from [bnati5/FaceMe](https://github.com/bnati5/FaceMe) (MIT, (c) 2020 Nathanael Alemayehu). About 55% of the normalised code lines in notebooks 2 and 3 match it, including the model head and the webcam loop. The full MIT notice is in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). This repository's changes: 100x100 inputs, VOC parsing, date/time logging, the photo-grouped split and seed, Keras 3 updates, the Gradio demo and this documentation.
 - **Dataset.** Kaggle "Face Mask Detection" by andrewmvd (CC0), from the Make ML [Mask Dataset](https://makeml.app/datasets/mask).
 - **MTCNN.** Zhang, K., Zhang, Z., Li, Z. and Qiao, Y., "Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks", IEEE Signal Processing Letters, 2016. Implementation: [ipazc/mtcnn](https://github.com/ipazc/mtcnn) (MIT).
 - **InceptionV3.** Szegedy, C. et al., "Rethinking the Inception Architecture for Computer Vision", CVPR 2016. ImageNet weights from Keras.
+- **Third-party licenses.** Every third-party component and its license text is listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## License
 
