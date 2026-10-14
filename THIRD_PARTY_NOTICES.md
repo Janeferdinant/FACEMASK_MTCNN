@@ -7,7 +7,7 @@ The components below are third-party and keep their own licenses.
 
 - Source: https://github.com/bnati5/FaceMe
 - License: MIT
-- Where it applies: the notebooks in this repository (`2_training-face-mask-model.ipynb`, `3_detecting-mask-w-mtcnn.ipynb` and, to a smaller degree, `1_data-preprocessing.ipynb`) were adapted from FaceMe. A line-by-line comparison during the October 2026 audit found that about 55% of the normalised code lines in notebooks 2 and 3 match FaceMe, including the model head, the webcam loop and the pinned dependency list. This repository's own changes: a 100x100 input size, VOC annotation parsing, the date/time log, the photo-grouped split, the Keras 3 updates and `demo/app.py`.
+- Contains code from FaceMe (MIT license), used in the notebooks `2_training-face-mask-model.ipynb`, `3_detecting-mask-w-mtcnn.ipynb` and, to a smaller degree, `1_data-preprocessing.ipynb`.
 
 ```
 MIT License
