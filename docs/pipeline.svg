@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 290" width="1080" height="290" role="img" aria-labelledby="title desc">
+  <title id="title">Face-mask detection pipeline</title>
+  <desc id="desc">An input image goes to the pretrained MTCNN face detector. Each detected face is cropped, resized to 100 by 100 pixels and scaled to 0 to 1. A transfer-learned InceptionV3 classifier then labels each face as with_mask, without_mask or mask_weared_incorrect.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5568"/>
+    </marker>
+  </defs>
+  <style>
+    .bg { fill: #ffffff; }
+    .box { fill: #f7fafc; stroke: #4a5568; stroke-width: 1.5; }
+    .model { fill: #ebf4ff; stroke: #2b6cb0; stroke-width: 1.5; }
+    .step { font: 600 12px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #718096; letter-spacing: 0.06em; }
+    .h { font: 700 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1a202c; }
+    .t { font: 400 12.5px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #2d3748; }
+    .code { font: 600 11.5px Consolas, "SFMono-Regular", Menlo, monospace; }
+    .note { font: 400 12px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #4a5568; }
+    .flow { stroke: #4a5568; stroke-width: 1.8; fill: none; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="1080" height="290" rx="12"/>
+
+  <!-- step labels -->
+  <text class="step" x="91" y="44" text-anchor="middle">INPUT</text>
+  <text class="step" x="301" y="44" text-anchor="middle">1 · DETECT</text>
+  <text class="step" x="516" y="44" text-anchor="middle">2 · CROP</text>
+  <text class="step" x="751" y="44" text-anchor="middle">3 · CLASSIFY</text>
+  <text class="step" x="988" y="44" text-anchor="middle">OUTPUT PER FACE</text>
+
+  <!-- input -->
+  <rect class="box" x="16" y="60" width="150" height="160" rx="10"/>
+  <text class="h" x="91" y="120" text-anchor="middle">Input image</text>
+  <text class="t" x="91" y="144" text-anchor="middle">uploaded photo or</text>
+  <text class="t" x="91" y="162" text-anchor="middle">webcam frame</text>
+
+  <line class="flow" x1="166" y1="140" x2="204" y2="140" marker-end="url(#arrow)"/>
+
+  <!-- MTCNN -->
+  <rect class="model" x="206" y="60" width="190" height="160" rx="10"/>
+  <text class="h" x="301" y="112" text-anchor="middle">MTCNN</text>
+  <text class="t" x="301" y="136" text-anchor="middle">pretrained face detector</text>
+  <text class="t" x="301" y="154" text-anchor="middle">(mtcnn package)</text>
+  <text class="t" x="301" y="180" text-anchor="middle">one box per face</text>
+
+  <line class="flow" x1="396" y1="140" x2="434" y2="140" marker-end="url(#arrow)"/>
+
+  <!-- crop -->
+  <rect class="box" x="436" y="60" width="160" height="160" rx="10"/>
+  <text class="h" x="516" y="120" text-anchor="middle">Face crop</text>
+  <text class="t" x="516" y="144" text-anchor="middle">resize to 100 × 100</text>
+  <text class="t" x="516" y="162" text-anchor="middle">RGB, pixels ÷ 255</text>
+
+  <line class="flow" x1="596" y1="140" x2="634" y2="140" marker-end="url(#arrow)"/>
+
+  <!-- classifier -->
+  <rect class="model" x="636" y="60" width="230" height="160" rx="10"/>
+  <text class="h" x="751" y="98" text-anchor="middle">InceptionV3 classifier</text>
+  <text class="t" x="751" y="122" text-anchor="middle">transfer learning:</text>
+  <text class="t" x="751" y="140" text-anchor="middle">ImageNet weights, frozen</text>
+  <text class="t" x="751" y="158" text-anchor="middle">up to layer mixed7</text>
+  <text class="t" x="751" y="182" text-anchor="middle">+ Dense 1024 → Dropout 0.3</text>
+  <text class="t" x="751" y="200" text-anchor="middle">→ Dense 3 (softmax)</text>
+
+  <!-- fan-out -->
+  <path class="flow" d="M866,140 C886,140 886,90 904,90" marker-end="url(#arrow)"/>
+  <line class="flow" x1="866" y1="140" x2="904" y2="140" marker-end="url(#arrow)"/>
+  <path class="flow" d="M866,140 C886,140 886,190 904,190" marker-end="url(#arrow)"/>
+
+  <!-- classes -->
+  <rect x="906" y="73" width="164" height="34" rx="17" fill="#f0fff4" stroke="#2f855a" stroke-width="1.5"/>
+  <text class="code" x="988" y="94" text-anchor="middle" fill="#22543d">with_mask</text>
+  <rect x="906" y="123" width="164" height="34" rx="17" fill="#fff5f5" stroke="#c53030" stroke-width="1.5"/>
+  <text class="code" x="988" y="144" text-anchor="middle" fill="#742a2a">without_mask</text>
+  <rect x="906" y="173" width="164" height="34" rx="17" fill="#fffff0" stroke="#b7791f" stroke-width="1.5"/>
+  <text class="code" x="988" y="194" text-anchor="middle" fill="#744210">mask_weared_incorrect</text>
+
+  <text class="note" x="540" y="262" text-anchor="middle">Notebook 1 builds the training crops from the dataset's annotated boxes; notebook 2 trains the classifier head; notebook 3 and demo/app.py run the full pipeline.</text>
+</svg>

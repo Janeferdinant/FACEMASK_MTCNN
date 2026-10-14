@@ -1,0 +1,25 @@
+# Files the notebooks generate in data/ (large; never committed)
+data/*.npy
+data/*.pkl
+data/*.h5
+data/*.keras
+data/*.ckpt*
+data/checkpoint
+data/run_metrics.json
+
+# Model weights anywhere in the repo
+*.h5
+*.keras
+*.weights.h5
+
+# Python and Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+
+# Gradio
+.gradio/
+flagged/
