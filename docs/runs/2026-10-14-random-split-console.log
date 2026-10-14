@@ -1,0 +1,155 @@
+(4072, 100, 100, 3) (4072, 3) distinct source photos: 848
+Epoch 1/20
+104/104 - 60s - 573ms/step - acc: 0.9199 - loss: 0.5694 - val_acc: 0.9700 - val_loss: 0.0924
+Epoch 2/20
+104/104 - 21s - 206ms/step - acc: 0.9724 - loss: 0.0896 - val_acc: 0.9510 - val_loss: 0.1468
+Epoch 3/20
+104/104 - 21s - 205ms/step - acc: 0.9842 - loss: 0.0530 - val_acc: 0.9373 - val_loss: 0.1909
+Epoch 4/20
+104/104 - 17s - 167ms/step - acc: 0.9857 - loss: 0.0673 - val_acc: 0.9428 - val_loss: 0.2499
+Epoch 5/20
+104/104 - 22s - 207ms/step - acc: 0.9882 - loss: 0.0369 - val_acc: 0.9264 - val_loss: 0.4415
+Epoch 6/20
+104/104 - 21s - 202ms/step - acc: 0.9763 - loss: 0.0890 - val_acc: 0.9428 - val_loss: 0.2253
+Epoch 7/20
+104/104 - 21s - 206ms/step - acc: 0.9897 - loss: 0.0408 - val_acc: 0.9646 - val_loss: 0.1686
+Epoch 8/20
+104/104 - 41s - 390ms/step - acc: 0.9906 - loss: 0.0250 - val_acc: 0.9619 - val_loss: 0.2434
+Epoch 9/20
+104/104 - 18s - 175ms/step - acc: 0.9897 - loss: 0.0463 - val_acc: 0.9455 - val_loss: 0.5027
+Epoch 10/20
+104/104 - 19s - 184ms/step - acc: 0.9885 - loss: 0.0381 - val_acc: 0.9401 - val_loss: 0.4597
+Epoch 11/20
+104/104 - 21s - 201ms/step - acc: 0.9918 - loss: 0.0326 - val_acc: 0.9455 - val_loss: 0.5479
+Epoch 12/20
+104/104 - 21s - 200ms/step - acc: 0.9948 - loss: 0.0220 - val_acc: 0.9537 - val_loss: 0.4812
+Epoch 13/20
+104/104 - 41s - 398ms/step - acc: 0.9936 - loss: 0.0195 - val_acc: 0.9619 - val_loss: 0.1872
+Epoch 14/20
+104/104 - 42s - 403ms/step - acc: 0.9933 - loss: 0.0207 - val_acc: 0.9510 - val_loss: 0.5355
+Epoch 15/20
+104/104 - 22s - 215ms/step - acc: 0.9967 - loss: 0.0095 - val_acc: 0.9700 - val_loss: 0.1995
+Epoch 16/20
+104/104 - 21s - 204ms/step - acc: 0.9955 - loss: 0.0309 - val_acc: 0.9564 - val_loss: 0.3833
+Epoch 17/20
+104/104 - 22s - 207ms/step - acc: 0.9976 - loss: 0.0139 - val_acc: 0.9564 - val_loss: 0.5801
+Epoch 18/20
+104/104 - 38s - 362ms/step - acc: 0.9967 - loss: 0.0122 - val_acc: 0.9537 - val_loss: 0.4219
+Epoch 19/20
+104/104 - 14s - 135ms/step - acc: 0.9961 - loss: 0.0133 - val_acc: 0.9619 - val_loss: 0.2381
+Epoch 20/20
+104/104 - 13s - 124ms/step - acc: 0.9985 - loss: 0.0083 - val_acc: 0.9619 - val_loss: 0.2688
+                       precision    recall  f1-score   support
+
+         without_mask     0.9178    0.9306    0.9241        72
+            with_mask     0.9754    0.9724    0.9739       326
+mask_weared_incorrect     0.6000    0.6000    0.6000        10
+
+             accuracy                         0.9559       408
+            macro avg     0.8311    0.8343    0.8327       408
+         weighted avg     0.9560    0.9559    0.9559       408
+
+seed 42: test accuracy 0.9559 (390/408), 517 s training
+Epoch 1/20
+104/104 - 31s - 298ms/step - acc: 0.9196 - loss: 0.4836 - val_acc: 0.9646 - val_loss: 0.1404
+Epoch 2/20
+104/104 - 17s - 160ms/step - acc: 0.9682 - loss: 0.1060 - val_acc: 0.9373 - val_loss: 0.1953
+Epoch 3/20
+104/104 - 15s - 146ms/step - acc: 0.9797 - loss: 0.0634 - val_acc: 0.9591 - val_loss: 0.1703
+Epoch 4/20
+104/104 - 15s - 143ms/step - acc: 0.9900 - loss: 0.0269 - val_acc: 0.9510 - val_loss: 0.1675
+Epoch 5/20
+104/104 - 14s - 132ms/step - acc: 0.9873 - loss: 0.0428 - val_acc: 0.9346 - val_loss: 0.2120
+Epoch 6/20
+104/104 - 15s - 142ms/step - acc: 0.9915 - loss: 0.0307 - val_acc: 0.9373 - val_loss: 0.2368
+Epoch 7/20
+104/104 - 14s - 135ms/step - acc: 0.9888 - loss: 0.0411 - val_acc: 0.9482 - val_loss: 0.2454
+Epoch 8/20
+104/104 - 14s - 133ms/step - acc: 0.9930 - loss: 0.0204 - val_acc: 0.9482 - val_loss: 0.2623
+Epoch 9/20
+104/104 - 15s - 140ms/step - acc: 0.9958 - loss: 0.0217 - val_acc: 0.9292 - val_loss: 0.3163
+Epoch 10/20
+104/104 - 13s - 124ms/step - acc: 0.9945 - loss: 0.0195 - val_acc: 0.9264 - val_loss: 0.4091
+Epoch 11/20
+104/104 - 13s - 123ms/step - acc: 0.9948 - loss: 0.0153 - val_acc: 0.9591 - val_loss: 0.1663
+Epoch 12/20
+104/104 - 13s - 125ms/step - acc: 0.9945 - loss: 0.0245 - val_acc: 0.9673 - val_loss: 0.1488
+Epoch 13/20
+104/104 - 13s - 126ms/step - acc: 0.9906 - loss: 0.0369 - val_acc: 0.9482 - val_loss: 0.3088
+Epoch 14/20
+104/104 - 13s - 128ms/step - acc: 0.9930 - loss: 0.0286 - val_acc: 0.9428 - val_loss: 0.3204
+Epoch 15/20
+104/104 - 13s - 127ms/step - acc: 0.9924 - loss: 0.0287 - val_acc: 0.9619 - val_loss: 0.2791
+Epoch 16/20
+104/104 - 13s - 128ms/step - acc: 0.9915 - loss: 0.0369 - val_acc: 0.9537 - val_loss: 0.2698
+Epoch 17/20
+104/104 - 13s - 122ms/step - acc: 0.9961 - loss: 0.0177 - val_acc: 0.9537 - val_loss: 0.2744
+Epoch 18/20
+104/104 - 14s - 134ms/step - acc: 0.9982 - loss: 0.0052 - val_acc: 0.9537 - val_loss: 0.3524
+Epoch 19/20
+104/104 - 14s - 135ms/step - acc: 0.9994 - loss: 0.0011 - val_acc: 0.9591 - val_loss: 0.3883
+Epoch 20/20
+104/104 - 14s - 131ms/step - acc: 0.9994 - loss: 0.0032 - val_acc: 0.9510 - val_loss: 0.4522
+                       precision    recall  f1-score   support
+
+         without_mask     0.9688    0.9538    0.9612        65
+            with_mask     0.9764    0.9940    0.9851       333
+mask_weared_incorrect     1.0000    0.5000    0.6667        10
+
+             accuracy                         0.9755       408
+            macro avg     0.9817    0.8159    0.8710       408
+         weighted avg     0.9758    0.9755    0.9735       408
+
+seed 43: test accuracy 0.9755 (398/408), 295 s training
+Epoch 1/20
+104/104 - 23s - 223ms/step - acc: 0.9214 - loss: 0.5394 - val_acc: 0.9510 - val_loss: 0.1540
+Epoch 2/20
+104/104 - 13s - 129ms/step - acc: 0.9721 - loss: 0.0828 - val_acc: 0.9237 - val_loss: 0.2592
+Epoch 3/20
+104/104 - 14s - 134ms/step - acc: 0.9845 - loss: 0.0510 - val_acc: 0.9619 - val_loss: 0.1254
+Epoch 4/20
+104/104 - 13s - 128ms/step - acc: 0.9882 - loss: 0.0361 - val_acc: 0.9619 - val_loss: 0.1347
+Epoch 5/20
+104/104 - 13s - 127ms/step - acc: 0.9894 - loss: 0.0313 - val_acc: 0.9455 - val_loss: 0.1980
+Epoch 6/20
+104/104 - 13s - 125ms/step - acc: 0.9964 - loss: 0.0150 - val_acc: 0.9619 - val_loss: 0.1743
+Epoch 7/20
+104/104 - 13s - 130ms/step - acc: 0.9909 - loss: 0.0304 - val_acc: 0.9455 - val_loss: 0.3519
+Epoch 8/20
+104/104 - 14s - 133ms/step - acc: 0.9942 - loss: 0.0152 - val_acc: 0.9591 - val_loss: 0.2003
+Epoch 9/20
+104/104 - 12s - 118ms/step - acc: 0.9973 - loss: 0.0098 - val_acc: 0.9700 - val_loss: 0.2094
+Epoch 10/20
+104/104 - 21s - 199ms/step - acc: 0.9973 - loss: 0.0109 - val_acc: 0.9591 - val_loss: 0.2179
+Epoch 11/20
+104/104 - 12s - 113ms/step - acc: 0.9985 - loss: 0.0042 - val_acc: 0.9619 - val_loss: 0.3482
+Epoch 12/20
+104/104 - 13s - 128ms/step - acc: 0.9994 - loss: 0.0024 - val_acc: 0.9700 - val_loss: 0.2055
+Epoch 13/20
+104/104 - 13s - 122ms/step - acc: 1.0000 - loss: 6.1030e-04 - val_acc: 0.9673 - val_loss: 0.1639
+Epoch 14/20
+104/104 - 21s - 204ms/step - acc: 0.9994 - loss: 0.0013 - val_acc: 0.9564 - val_loss: 0.2867
+Epoch 15/20
+104/104 - 13s - 125ms/step - acc: 0.9885 - loss: 0.0537 - val_acc: 0.9537 - val_loss: 0.3586
+Epoch 16/20
+104/104 - 13s - 127ms/step - acc: 0.9824 - loss: 0.0924 - val_acc: 0.9537 - val_loss: 0.5172
+Epoch 17/20
+104/104 - 13s - 121ms/step - acc: 0.9742 - loss: 0.1470 - val_acc: 0.9591 - val_loss: 0.4558
+Epoch 18/20
+104/104 - 12s - 118ms/step - acc: 0.9921 - loss: 0.0364 - val_acc: 0.9537 - val_loss: 0.3863
+Epoch 19/20
+104/104 - 13s - 120ms/step - acc: 0.9912 - loss: 0.0439 - val_acc: 0.9591 - val_loss: 0.3912
+Epoch 20/20
+104/104 - 12s - 114ms/step - acc: 0.9948 - loss: 0.0323 - val_acc: 0.9619 - val_loss: 0.3020
+                       precision    recall  f1-score   support
+
+         without_mask     0.9589    0.9211    0.9396        76
+            with_mask     0.9632    0.9937    0.9782       316
+mask_weared_incorrect     1.0000    0.5625    0.7200        16
+
+             accuracy                         0.9632       408
+            macro avg     0.9740    0.8257    0.8793       408
+         weighted avg     0.9638    0.9632    0.9609       408
+
+seed 44: test accuracy 0.9632 (393/408), 285 s training
+seeds [42, 43, 44]: mean 0.9649, min 0.9559, max 0.9755
