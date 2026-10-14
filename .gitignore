@@ -23,3 +23,7 @@ venv/
 # Gradio
 .gradio/
 flagged/
+.ruff_cache/
+
+# Generated test clips and annotated videos
+*.mp4
