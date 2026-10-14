@@ -169,6 +169,7 @@ The same detect, crop, classify pattern applies to any task that needs a per-fac
 - Group-aware cross-validation with confidence intervals instead of a single split.
 - Class weighting or more `mask_weared_incorrect` examples, and a test on a second dataset.
 - Run MTCNN in a background thread so the picture never pauses, test on a live webcam and a laptop CPU, and share one `predict()` function between the notebook, the Gradio demo and the webcam script (notebook 3 is still the 2022 code).
+- Re-run the FPS benchmark on an otherwise idle machine and on a live webcam: the verified run shared the CPU with an unrelated program and used a video file.
 - A hosted, upload-only demo: the weights now have a public home, and the Space files are ready (see [Demo](#demo)); what is missing is a hosting plan that works for a free account.
 
 ## Credits & citation
