@@ -113,7 +113,7 @@ class Pipeline:
         # One batched call instead of notebook 3's call per face; the model and inputs are the same.
         scores = self.model.predict(np.stack(crops), verbose=0)
         results = []
-        for ((x, y, w, h), confidence), row in zip(boxes, scores):
+        for ((x, y, w, h), confidence), row in zip(boxes, scores, strict=True):
             target = int(np.argmax(row))
             results.append(
                 {

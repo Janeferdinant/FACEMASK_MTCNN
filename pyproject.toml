@@ -1,0 +1,9 @@
+# Tooling configuration only; this repository is not an installable package.
+[tool.ruff]
+line-length = 120
+# The notebooks are teaching material. Notebook 3 is deliberately kept as the original 2022 code, so they are not linted.
+extend-exclude = ["*.ipynb", "data", "archive"]
+
+[tool.ruff.lint]
+# Stated explicitly so the result does not change when ruff changes its default rule set.
+select = ["E4", "E7", "E9", "F", "W", "I", "B"]
