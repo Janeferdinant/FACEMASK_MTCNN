@@ -32,6 +32,17 @@ python demo/app.py --check data/images/maksssksksss3.png
 
 Other options: `--host`, `--port` (defaults: `$GRADIO_SERVER_NAME` / `$GRADIO_SERVER_PORT`, else 127.0.0.1 and 7860).
 
+## Webcam or video file
+
+`webcam.py` is the live version of the same pipeline (see the main README for the measured speed):
+
+```bash
+python demo/webcam.py                          # default camera; q or Esc quits
+python demo/webcam.py --source clip.mp4 --no-display --save out.mp4
+```
+
+MTCNN runs on every 10th frame (`--detect-every N`), optical flow moves the boxes in between, and all faces of a frame are classified in one batch. `realtime.py` holds the logic (frame skipping, tracking, FPS counter) and is covered by `tests/`. Weights are found as above. Nothing is stored unless you pass `--save`.
+
 ## The Hugging Face Space (not yet live)
 
 The files for a public Gradio Space named `JaneAaronNF/face-mask-demo` are ready, but **the Space has not been created**: on 2026-10-14 Hugging Face refused (HTTP 402) because a Gradio Space on free `cpu-basic` hardware needs a PRO subscription on this account. See [`docs/runs/2026-10-14-space-check.md`](../docs/runs/2026-10-14-space-check.md) for the exact message and for a local rehearsal of the Space package.

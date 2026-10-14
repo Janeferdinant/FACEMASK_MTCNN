@@ -120,7 +120,8 @@
         <tr><td>F1 per class</td><td>without_mask 0.929<br>with_mask 0.979<br>mask_weared_incorrect <strong>0.700</strong> (12 test crops)</td><td><span class="tag ok">Verified</span> re-run 2026-10-13, photo-grouped split</td><td>scikit-learn classification report, same test set</td></tr>
         <tr><td>Majority-class baseline</td><td>79.4%</td><td><span class="tag ok">Verified</span> re-run 2026-10-13, photo-grouped split</td><td>Always predicting <code>with_mask</code></td></tr>
         <tr><td>Test accuracy (2022 notebook)</td><td>94.85% (387 of 408)</td><td><span class="tag rep">Reported</span> notebook output, Feb 2022</td><td>Unseeded random split by face; most test faces shared a photo with training faces, so it overstates generalisation. Cannot be recreated.</td></tr>
-        <tr><td>Webcam speed</td><td>about 1.3 frames per second</td><td><span class="tag rep">Reported</span> notebook 3's own note</td><td>Live loop on the author's machine (not recorded)</td></tr>
+        <tr><td>Test accuracy (2022 split style, re-run)</td><td>96.49% mean (95.59%, 97.55%, 96.32%)</td><td><span class="tag ok">Verified</span> re-run 2026-10-14, random crop split, seeds 42, 43, 44</td><td>Random 10% of face crops; 91% to 93% of test crops share a photo with training, so it can overstate generalisation. Does not confirm or replace the Reported 94.85%</td></tr>
+        <tr><td>Webcam speed</td><td>23.1 FPS mean (<code>demo/webcam.py</code>)</td><td><span class="tag ok">Verified</span> run 2026-10-14, AMD Ryzen 7 5800X, CPU only</td><td>MTCNN every 10 frames, 640x480, video file made from dataset photos (no camera was available); the picture pauses about 0.25 s whenever MTCNN runs. Notebook 3 style: 1.8 FPS (notebook 3's own 2022 note, <span class="tag rep">Reported</span>: about 1.3)</td></tr>
       </tbody>
     </table>
   </div>
@@ -151,7 +152,7 @@ python demo/app.py        # then open http://127.0.0.1:7860</code></pre>
     <li><strong>Small, single-source data.</strong> Untested on other cameras, lighting, face angles, skin tones or mask styles.</li>
     <li><strong>Detector misses.</strong> MTCNN found 5 of the 9 faces in one test photo, and a missed face gets no label.</li>
     <li><strong>Overfitting.</strong> Validation loss rises from 0.28 at epoch 1 to 0.80 at epoch 20.</li>
-    <li><strong>Not a real-time system</strong>, and <strong>not for safety-critical or surveillance use</strong>. It is a learning project.</li>
+    <li>Timed on a video file, not a live camera, on one desktop CPU; <strong>not for safety-critical or surveillance use</strong>. It is a learning project.</li>
   </ul>
 </section>
 
