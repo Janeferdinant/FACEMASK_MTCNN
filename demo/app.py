@@ -7,11 +7,18 @@ live webcam loop:
     -> the InceptionV3 classifier trained in notebook 2 labels it
        with_mask / without_mask / mask_weared_incorrect
 
-The trained weights are not stored in git. Create them with notebooks 1 and 2 (notebook 2 writes
-data/inceptionV3-model.h5), then start the app with either of:
+The trained weights are not stored in git. There are three ways to get them:
 
-    python demo/app.py --weights data/inceptionV3-model.h5
-    FACEMASK_WEIGHTS=path/to/inceptionV3-model.h5 python demo/app.py
+    1. Do nothing: if no weights are given and data/inceptionV3-model.h5 does not exist, the app downloads
+       inceptionV3-model.keras (about 190 MB) from the Hugging Face model repository
+       JaneAaronNF/face-mask-inceptionv3-mtcnn.
+    2. Train them with notebooks 1 and 2 (notebook 2 writes data/inceptionV3-model.h5).
+    3. Point at any weights file:
+
+           python demo/app.py --weights data/inceptionV3-model.h5
+           FACEMASK_WEIGHTS=path/to/inceptionV3-model.h5 python demo/app.py
+
+The same file is the app of the Hugging Face Space JaneAaronNF/face-mask-demo (see demo/README.md).
 
 Check mode runs the pipeline on image files, prints the detections as JSON and exits without
 starting a server:
@@ -38,24 +45,40 @@ LABELS = {0: "without_mask", 1: "with_mask", 2: "mask_weared_incorrect"}
 COLORS = {0: (255, 0, 0), 1: (0, 255, 0), 2: (255, 255, 0)}
 IMG_SIZE = (100, 100)
 
-# Example photos from the Kaggle "Face Mask Detection" dataset (CC0) that ships in data/images.
+# Where to download the weights from when there are no local ones (the public model repository).
+HF_REPO = "JaneAaronNF/face-mask-inceptionv3-mtcnn"
+HF_FILENAME = "inceptionV3-model.keras"
+
+# Example photos from the Kaggle "Face Mask Detection" dataset (CC0). They are looked up in an
+# `examples/` folder next to this file (the Hugging Face Space) or in data/images (this repository).
 # All three are in the held-out test split of the 2026-10-13 re-run.
-EXAMPLE_IMAGES = [
-    REPO / "data" / "images" / name
-    for name in ("maksssksksss3.png", "maksssksksss124.png", "maksssksksss250.png")
-]
+EXAMPLE_NAMES = ("maksssksksss3.png", "maksssksksss124.png", "maksssksksss250.png")
+EXAMPLE_DIRS = (Path(__file__).resolve().parent / "examples", REPO / "data" / "images")
+EXAMPLE_IMAGES = next(
+    ([d / n for n in EXAMPLE_NAMES] for d in EXAMPLE_DIRS if all((d / n).is_file() for n in EXAMPLE_NAMES)), []
+)
 
 
 def resolve_weights(cli_value: str | None) -> Path:
-    """Weights path from --weights, else $FACEMASK_WEIGHTS, else data/inceptionV3-model.h5."""
-    value = cli_value or os.environ.get(WEIGHTS_ENV) or str(DEFAULT_WEIGHTS)
-    path = Path(value).expanduser()
-    if not path.is_file():
+    """Weights from --weights, else $FACEMASK_WEIGHTS, else data/inceptionV3-model.h5, else the Hub copy."""
+    value = cli_value or os.environ.get(WEIGHTS_ENV)
+    if value:
+        path = Path(value).expanduser()
+        if not path.is_file():
+            sys.exit(f"Model weights not found: {path}")
+        return path
+    if DEFAULT_WEIGHTS.is_file():
+        return DEFAULT_WEIGHTS
+    print(f"No local weights at {DEFAULT_WEIGHTS}; downloading {HF_FILENAME} from {HF_REPO} ...", file=sys.stderr)
+    try:
+        from huggingface_hub import hf_hub_download
+
+        return Path(hf_hub_download(HF_REPO, HF_FILENAME))
+    except Exception as error:  # offline, repo unavailable, huggingface_hub missing
         sys.exit(
-            f"Model weights not found: {path}\n"
+            f"Could not download the weights ({error}).\n"
             f"Train them with notebooks 1 and 2, then pass --weights <file> or set {WEIGHTS_ENV}."
         )
-    return path
 
 
 class Pipeline:
@@ -123,12 +146,19 @@ class Pipeline:
 
 ABOUT = """
 **Model:** MTCNN face detector (pretrained, from the `mtcnn` package) followed by an InceptionV3
-classifier transfer-learned in notebook 2 on the Kaggle *Face Mask Detection* dataset (CC0).
+classifier transfer-learned on the Kaggle *Face Mask Detection* dataset (CC0).
 It labels each face `with_mask`, `without_mask` or `mask_weared_incorrect`.
 
-**Privacy:** images are only used to compute the result. This app does not save them; Gradio keeps
-uploads and results in a temporary cache, which the app clears every 10 minutes.
-The example images come from the CC0 dataset above, which shows real people's faces.
+**Please note**
+- **Privacy.** Images are processed in memory and the app never stores them. (Gradio briefly keeps an
+  upload in a temporary cache, which this app clears every 10 minutes.)
+- **Examples.** The example images come only from the licensed (CC0) dataset above. It shows real
+  people's faces; CC0 does not say whether they consented.
+- **First load.** The first request after the app has been idle can take about 30 seconds while it wakes up.
+- **Results are imperfect.** MTCNN can miss faces (it found 5 of 9 in one test photo), and the
+  `mask_weared_incorrect` class has only 12 test crops and an F1 of 0.70. Photos unlike the training data
+  will give more mistakes.
+- **Not for safety-critical or surveillance use.** This is a teaching demo.
 """
 
 HOW_IT_WORKS = """
@@ -186,10 +216,10 @@ def build_ui(pipe: Pipeline):
 
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--weights", help=f"trained Keras model (.h5 or .keras); default: ${WEIGHTS_ENV} or {DEFAULT_WEIGHTS.relative_to(REPO)}")
+    parser.add_argument("--weights", help=f"trained Keras model (.h5 or .keras); default: ${WEIGHTS_ENV}, else {DEFAULT_WEIGHTS.relative_to(REPO)}, else the Hugging Face copy")
     parser.add_argument("--check", nargs="+", metavar="IMAGE", help="run on these image files, print JSON and exit")
-    parser.add_argument("--host", default="127.0.0.1", help="server address (default: 127.0.0.1)")
-    parser.add_argument("--port", type=int, default=7860, help="server port (default: 7860)")
+    parser.add_argument("--host", default=None, help="server address (default: $GRADIO_SERVER_NAME, else 127.0.0.1)")
+    parser.add_argument("--port", type=int, default=None, help="server port (default: $GRADIO_SERVER_PORT, else 7860)")
     args = parser.parse_args(argv)
 
     pipe = Pipeline(resolve_weights(args.weights))
@@ -205,7 +235,9 @@ def main(argv: list[str] | None = None) -> None:
         print(json.dumps(report, indent=2))
         return
 
-    build_ui(pipe).launch(server_name=args.host, server_port=args.port)
+    host = args.host or os.environ.get("GRADIO_SERVER_NAME", "127.0.0.1")
+    port = args.port or int(os.environ.get("GRADIO_SERVER_PORT", 7860))
+    build_ui(pipe).launch(server_name=host, server_port=port)
 
 
 if __name__ == "__main__":
